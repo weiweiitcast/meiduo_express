@@ -2,7 +2,7 @@
 import json,hashlib,base64,urllib,abc,requests
 
 from .api_settings import KDNIAO_GLOBAL_SETTINGS,DATA_TYPE,KDNIAO_URL
-from .commands import *
+from .request_type import *
 from .exceptions import RequiredDataMissing
 
 
@@ -68,7 +68,7 @@ class DKNiaoExpress(metaclass=abc.ABCMeta):
             msg.encode(encoding=self.__char_set)
         ).hexdigest()
 
-        # URL编码
+        # URL_Base64编码
         datasign = base64.urlsafe_b64encode(
             md5_str.encode(encoding=self.__char_set)
         ).decode()
@@ -115,18 +115,39 @@ class DKNiaoExpress(metaclass=abc.ABCMeta):
         return self.__send_request()
 
 
+
+
     @abc.abstractmethod
     def prompt_check(self, *args, **kwargs):
+        """即时查询"""
         pass
 
     @abc.abstractmethod
     def tracking_subscribe(self, *args, **kwargs):
+        """轨迹订阅"""
         pass
 
     @abc.abstractmethod
     def identify_logistic_code(self, *args, **kwargs):
+        """订单识别"""
         pass
 
     @abc.abstractmethod
     def ordering_pick_up(self, *args, **kwargs):
+        """预约取件"""
+        pass
+
+    @abc.abstractmethod
+    def cancle_ordering_pick_up(self, *args, **kwargs):
+        """取消预约取件"""
+        pass
+
+    @abc.abstractmethod
+    def place_order(self, *args, **kwargs):
+        """下发物流订单"""
+        pass
+
+    @abc.abstractmethod
+    def cancle_order(self, *args, **kwargs):
+        """取消物流订单"""
         pass
