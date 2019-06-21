@@ -173,10 +173,27 @@ class MeiduoExpress(DKNiaoExpress):
         }
         :return:
         """
+
         # 生产环境需要指定请求url
         # self.url =  PLACE_ORDER_URL
         self.request_type = PLACE_ORDER
         return self.send_request(request_data)
 
     def cancle_order(self, request_data):
-        pass
+        """
+        取消下单，电子面单(只能在生产环境下使用，沙盒环境未提供测试接口)
+        :param request_data:
+        {
+            "ShipperCode": 快递公司编码
+            "OrderCode": 订单编号
+            "ExpNo": 快递单号
+            "CustomerName": 电子面单客户号
+            "CustomerPwd": 电子面单密码
+        }
+        :return:
+        """
+
+        # 生产环境需要指定请求url
+        # self.url =  CANCLE_ORDER_URL
+        self.request_type = CANCLE_ORDER
+        return self.send_request(request_data)

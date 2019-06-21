@@ -22,4 +22,4 @@ CANCLE_ORDERING_PICKUP_URL= ORDERING_PICKUP_URL
 # 下单（电子面单）
 PLACE_ORDER_URL = "http://api.kdniao.com/api/EOrderService"
 # 取消下单（电子面单）
-CANCLE_ORDER_URL = "http://api.kdniao.com/api/EOrderService"
+CANCLE_ORDER_URL = PLACE_ORDER_URL

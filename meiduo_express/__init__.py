@@ -2,7 +2,6 @@
 from .meiduo_express import MeiduoExpress
 from .dkniao_express.exp_company_abbr import *
 
-
 # 初始化单例对象
 __meiduo_exp = MeiduoExpress()
 
@@ -18,6 +17,7 @@ def prompt_check(request_data):
         "LogisticCode": 运单号,
     }
     """
+
     return __meiduo_exp.prompt_check(request_data)
 
 
@@ -50,6 +50,7 @@ def tracking_subscribe(request_data):
     }
     :return:
     """
+
     return __meiduo_exp.tracking_subscribe(request_data)
 
 
@@ -62,6 +63,7 @@ def identify_logistic_code(request_data):
         "LogisticCode": "3967950525457"
     }
     """
+
     return __meiduo_exp.identify_logistic_code(request_data)
 
 
@@ -102,6 +104,7 @@ def ordering_pick_up(request_data):
     }
     :return:
     """
+
     return __meiduo_exp.ordering_pick_up(request_data)
 
 
@@ -117,6 +120,7 @@ def cancle_ordering_pick_up(request_data):
     }
     :return:
     """
+
     return __meiduo_exp.cancle_ordering_pick_up(request_data)
 
 
@@ -161,4 +165,23 @@ def place_order(request_data):
     }
     :return:
     """
+
     return __meiduo_exp.place_order(request_data)
+
+
+# 取消下单
+def cancle_order(request_data):
+    """
+    取消下单，电子面单
+    :param request_data:
+    {
+        "ShipperCode": 快递公司编码
+        "OrderCode": 订单编号
+        "ExpNo": 快递单号
+        "CustomerName": 电子面单客户号
+        "CustomerPwd": 电子面单密码
+    }
+    :return:
+    """
+
+    return __meiduo_exp.cancle_order(request_data)

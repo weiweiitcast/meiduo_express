@@ -19,7 +19,6 @@ KDNIAO_GLOBAL_SETTINGS = {
 }
 
 
-
 # 数据格式
 DATA_TYPE = {
     "json": "2",
