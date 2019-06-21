@@ -1,5 +1,7 @@
-from meiduo_express import cancle_order
-from meiduo_celery import app
+
+
+from tasks import meiduo_cancle_order
+
 
 data = {
 "ShipperCode": "UC",
@@ -9,6 +11,9 @@ data = {
 "CustomerPwd": "c0bfe0ba86b66bae5426303c53db0a8b"
 }
 
-@app.task
-def meiduo_cancle_order(data):
-    return cancle_order(data)
+import time
+
+a = meiduo_cancle_order.delay(data)
+
+if a.ready():
+    print(a.get(timeout=1))
