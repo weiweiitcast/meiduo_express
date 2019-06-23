@@ -18,15 +18,11 @@ class DKNiaoExpress(metaclass=abc.ABCMeta):
         assert self.__char_set, "please set CHAR_SET in global setting"
 
         self.__data_type = DATA_TYPE.get("json")
-        self.__request_data = {}
+        self.__request_data = None
         self.__request_type = None
 
         # 沙箱调试url，生还环境需要在调用接口时指明
         self.__url = KDNIAO_URL
-
-    @property
-    def char_set(self):
-        return self.__char_set
 
     @property
     def url(self):
@@ -68,7 +64,7 @@ class DKNiaoExpress(metaclass=abc.ABCMeta):
             msg.encode(encoding=self.__char_set)
         ).hexdigest()
 
-        # URL_Base64编码
+        # Base64编码
         datasign = base64.urlsafe_b64encode(
             md5_str.encode(encoding=self.__char_set)
         ).decode()
@@ -106,16 +102,25 @@ class DKNiaoExpress(metaclass=abc.ABCMeta):
         response = requests.post(self.url,
                                  data=self.__form_params,
                                  headers=self.__http_request_header)
-        return json.loads(response.content.decode(encoding=self.char_set))
+        return json.loads(response.content.decode(encoding=self.__char_set))
 
-    def send_request(self, request_data):
-        assert self.__request_type, "必须指明该请求的接口指令！例如：self.request_type=PROMPT_CHECK"
-        assert self.url, "必须指明该请求的url！例如：self.url=PROMTE_CHECK_URL 或 apisetting.KDNIAO_URL设置沙盒url"
-        self.request_data = request_data
+    def send_request(self, request_data=None):
+        assert self.__request_type, \
+            "必须指明该请求的接口指令！" \
+            "例如：self.request_type=PROMPT_CHECK"
+
+        assert self.url, \
+            "必须指明该请求的url！" \
+            "例如：self.url=PROMTE_CHECK_URL 或 apisetting.KDNIAO_URL设置沙盒url"
+
+        assert self.request_data or request_data, \
+            "无请求参数，请传入" \
+            "或请使用self.request_data属性设置请求参数"
+
+        if not self.request_data:
+            self.request_data = request_data
+
         return self.__send_request()
-
-
-
 
     @abc.abstractmethod
     def prompt_check(self, *args, **kwargs):

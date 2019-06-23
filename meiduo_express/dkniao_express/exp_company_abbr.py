@@ -1,5 +1,9 @@
 
+from collections import OrderedDict
 
+exp_abbr = OrderedDict(
+    [
+        ('ZTO', '中通'),
+    ]
+)
 
-ZHONG_TONG = "ZTO"
-SHUN_FENG = "SF"
